@@ -38,6 +38,8 @@ dependencies {
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
 
+    implementation 'com.github.tizisdeepan:eventscalendar:1.6.1'
+
     // The view calendar library
     implementation 'com.kizitonwose.calendar:view:2.3.0'
     implementation 'com.kizitonwose.calendar:compose:2.3.0'

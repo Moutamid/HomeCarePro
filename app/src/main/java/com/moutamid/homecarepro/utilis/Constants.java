@@ -16,8 +16,15 @@ import java.net.URL;
 
 
 public class Constants {
-
+    public static final String myFormat = "dd/MM/yyyy";
+    public static final String calFormat = "yyyy-MM-dd";
     public static final String SAVE_LIST = "saveList";
+    public static final String DATE_CLICK = "dateClick";
+
+    // Priorities
+    public static final String HIGH = "High";
+    public static final String MEDIUM = "Medium";
+    public static final String LOW = "Low";
 
     public static void checkApp(Activity activity) {
         String appName = "HomeCarePro";

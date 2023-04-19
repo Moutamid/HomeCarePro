@@ -107,7 +107,8 @@
             android:id="@+id/frequencyChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -161,7 +162,8 @@
             android:id="@+id/priorityChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -201,6 +203,20 @@
                 android:textSize="16sp" />
 
         </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/selectedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:textSize="18sp"
+            android:text="Select Date"
+            android:layout_marginTop="10sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:background="@drawable/background"
+            android:textColor="@color/off_white"
+            android:padding="10sp" />
 
 
         <Button

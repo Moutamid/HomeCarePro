@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="12sp"
     android:layout_margin="8sp"
-    app:cardBackgroundColor="@color/dark_grey">
+    android:id="@+id/mainCard"
+    app:cardBackgroundColor="@color/blue_darkB">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:padding="12sp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/versionCard"
+            android:id="@+id/priorityCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -49,7 +50,7 @@
             android:textSize="17sp"
             android:textColor="@color/off_white"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/versionCard"
+            android:layout_toLeftOf="@id/priorityCard"
             android:fontFamily="@font/poppins"
             android:textStyle="bold"
             android:text="Name : New task"
@@ -64,10 +65,10 @@
             android:textStyle="bold"
             android:lines="2"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/versionCard"
+            android:layout_toLeftOf="@id/priorityCard"
             android:fontFamily="@font/poppins"
             android:layout_below="@id/taskName"
-            android:text="Description : Something fishiidjshcih"
+            android:text="Description : Something fishiidjshci"
             android:layout_marginTop="6sp" />
 
         <TextView
@@ -81,17 +82,58 @@
             android:fontFamily="@font/poppins"
             android:text="Frequency : Monthly"
             android:layout_marginTop="6sp" />
-
-        <TextView
-            android:id="@+id/time"
+        
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/frequncy"
-            android:layout_marginStart="12sp"
-            android:layout_marginTop="12sp"
-            android:textColor="@color/off_white"
-            android:gravity="end"
-            android:text="12/12/1344" />
+            app:cardCornerRadius="10sp"
+            app:cardBackgroundColor="@color/colorBadge">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8sp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/off_white"
+                    android:gravity="end"
+                    android:text="12/12/1344" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:layout_gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/off_white"
+                        android:gravity="end"
+                        android:text="Change Status : " />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
 
     </RelativeLayout>
 
