@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_bg"
+    android:fillViewport="true"
+    android:scrollbarSize="0dp"
+    tools:context=".CreateTaskActivity">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="12sp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12sp"
+                android:backgroundTint="@color/dark_header"
+                android:fontFamily="@font/poppins"
+                android:text="Go Back"
+                android:textAllCaps="true"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/appname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_weight="1"
+                android:text="Create Task"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_alternates"
+                android:padding="12sp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/taskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            app:boxStrokeWidth="1dp"
+            app:hintTextColor="@color/off_white"
+            android:textColorHint="@color/off_white"
+            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeColor="@color/colorBadge"
+            app:boxBackgroundColor="@color/dark_header"
+            android:hint="Name of task">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/off_white"
+                android:fontFamily="@font/poppins"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/taskDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            app:boxStrokeWidth="1dp"
+            app:hintTextColor="@color/off_white"
+            android:textColorHint="@color/off_white"
+            app:boxStrokeWidthFocused="1dp"
+            app:boxStrokeColor="@color/colorBadge"
+            app:counterEnabled="true"
+            app:counterTextColor="@color/off_white"
+            app:counterMaxLength="100"
+            app:boxBackgroundColor="@color/dark_header"
+            android:hint="Description of task">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="100sp"
+                android:fontFamily="@font/poppins"
+                android:gravity="top"
+                android:textColor="@color/off_white"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:textSize="18sp"
+            android:text="Frequency"
+            android:textColor="@color/off_white"
+            android:padding="10sp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/frequencyChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/weekChip"
+                style="@style/Theme.HomeCarePro.ChipsColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Weekly"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/monthChip"
+                style="@style/Theme.HomeCarePro.ChipsColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Monthly"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/quarterChip"
+                style="@style/Theme.HomeCarePro.ChipsColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins"
+                android:text="3 Month"
+                android:textSize="16sp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:textSize="18sp"
+            android:text="Priority"
+            android:textColor="@color/off_white"
+            android:padding="10sp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/priorityChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/lowChip"
+                style="@style/Theme.HomeCarePro.ChipsColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins"
+                android:text="Low"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mediumChip"
+                style="@style/Theme.HomeCarePro.ChipsColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins"
+                android:text="Medium"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/highChip"
+                style="@style/Theme.HomeCarePro.ChipsColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins"
+                android:text="High"
+                android:textSize="16sp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+
+        <Button
+            android:id="@+id/createTask"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12sp"
+            android:backgroundTint="@color/colorBadge"
+            android:fontFamily="@font/poppins"
+            android:padding="12sp"
+            android:textAllCaps="true"
+            android:text="Create"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

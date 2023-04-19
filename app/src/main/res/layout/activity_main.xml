@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_bg"
+    android:fillViewport="true"
+    android:scrollbarSize="0dp"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12sp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/appname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_alternates"
+                android:padding="12sp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/createTask"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12sp"
+                android:backgroundTint="@color/dark_header"
+                android:drawableLeft="@drawable/note"
+                android:drawableTint="@color/off_white"
+                android:fontFamily="@font/poppins"
+                android:text="Create Task"
+                android:textAllCaps="true"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="MO" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:gravity="center"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="TU" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:gravity="center"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="WE" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:gravity="center"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="TH" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:gravity="center"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="FR" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:gravity="center"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="SA" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:background="@drawable/daybg"
+                android:gravity="center"
+                android:padding="11sp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="SU" />
+
+
+        </LinearLayout>
+
+        <com.kizitonwose.calendar.view.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12sp"
+            android:layout_marginEnd="12sp"
+            app:cv_dayViewResource="@layout/calendar_day_layout"
+            app:cv_monthHeaderResource="@layout/calender_month_layout"
+            app:fastScrollEnabled="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:layout_marginTop="8sp"
+            android:layout_weight="1"
+            android:background="@drawable/cardbs"
+            android:orientation="vertical"
+            android:padding="12sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins"
+                    android:text="Daily Task"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/viewAll"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12sp"
+                    android:backgroundTint="@color/colorBadge"
+                    android:drawableRight="@drawable/round_arrow_forward_24"
+                    android:drawableTint="@color/dark_header"
+                    android:drawablePadding="7sp"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/dark_header"
+                    android:text="@string/view_all"
+                    android:textAllCaps="true"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--    <me.ibrahimsn.lib.SmoothBottomBar-->
+    <!--        android:id="@+id/bottomBar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="70dp"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        app:textColor="@color/white"-->
+    <!--        app:itemFontFamily="@font/poppins"/>-->
+
+</androidx.core.widget.NestedScrollView>

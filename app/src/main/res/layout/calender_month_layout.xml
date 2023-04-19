@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendarDayText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="April"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:drawablePadding="12sp"
+    android:drawableTint="@color/off_white"
+    android:drawableRight="@drawable/round_arrow_forward_ios_24"
+    android:drawableLeft="@drawable/round_arrow_back_ios_24"
+    android:fontFamily="@font/poppins"
+    android:textSize="22sp"
+    android:textColor="@color/off_white" />
