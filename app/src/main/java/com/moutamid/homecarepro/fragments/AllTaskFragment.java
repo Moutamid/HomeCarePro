@@ -35,7 +35,7 @@ public class AllTaskFragment extends Fragment {
         binding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recycler.setHasFixedSize(false);
 
-        TaskAdapter adapter = new TaskAdapter(requireContext(), list);
+        TaskAdapter adapter = new TaskAdapter(requireContext(), list, list);
         binding.recycler.setAdapter(adapter);
 
         return binding.getRoot();

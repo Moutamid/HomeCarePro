@@ -1,6 +1,7 @@
 package com.moutamid.homecarepro.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,12 @@ import java.util.ArrayList;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
 
     Context context;
-    ArrayList<TaskModel> list;
+    ArrayList<TaskModel> list, allList;
 
-    public TaskAdapter(Context context, ArrayList<TaskModel> list) {
+    public TaskAdapter(Context context, ArrayList<TaskModel> list, ArrayList<TaskModel> allList) {
         this.context = context;
         this.list = list;
+        this.allList = allList;
     }
 
     @NonNull
@@ -67,19 +69,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
         String date = format.format(model.getDate());
         holder.date.setText("Created At : "+date+"\nStarted From : " + model.getStartingDate());
 
-        holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    list.get(holder.getAbsoluteAdapterPosition()).setStatus(true);
-                    // notifyItemChanged(holder.getAbsoluteAdapterPosition());
-                } else {
-                    list.get(holder.getAbsoluteAdapterPosition()).setStatus(false);
-                    // notifyItemChanged(holder.getAbsoluteAdapterPosition());
-                }
-                Stash.clear(Constants.SAVE_LIST);
-                Stash.put(Constants.SAVE_LIST, list);
+        holder.status.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Log.d("Checking1", ""+isChecked);
+            if (isChecked) {
+                allList.get(allList.indexOf(model)).setStatus(true);
+                // notifyItemChanged(holder.getAbsoluteAdapterPosition());
+            } else {
+                allList.get(allList.indexOf(model)).setStatus(false);
+                // notifyItemChanged(holder.getAbsoluteAdapterPosition());
             }
+            Stash.put(Constants.SAVE_LIST, allList);
         });
 
     }

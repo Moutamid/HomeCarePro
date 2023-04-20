@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.moutamid.homecarepro.databinding.ActivityViewAllBinding;
 import com.moutamid.homecarepro.fragments.AllTaskFragment;
@@ -29,9 +30,19 @@ public class ViewAllActivity extends AppCompatActivity {
             finish();
         });
 
-        setupViewPager(binding.viewPager);
-        binding.tabs.setupWithViewPager(binding.viewPager);
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new AllTaskFragment()).commit();
 
+        binding.allTask.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new AllTaskFragment()).commit();
+            binding.allView.setVisibility(View.VISIBLE);
+            binding.complView.setVisibility(View.GONE);
+        });
+
+        binding.completedTask.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new CompletedFragment()).commit();
+            binding.allView.setVisibility(View.GONE);
+            binding.complView.setVisibility(View.VISIBLE);
+        });
 
     }
 
@@ -39,45 +50,6 @@ public class ViewAllActivity extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(
-                getSupportFragmentManager());
-
-        adapter.addFragment(new AllTaskFragment(), "All Task");
-        adapter.addFragment(new CompletedFragment(), "Completed Task");
-
-        viewPager.setAdapter(adapter);
-    }
-
-    static class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int arg0) {
-            return this.mFragmentList.get(arg0);
-        }
-
-        @Override
-        public int getCount() {
-            return this.mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            this.mFragmentList.add(fragment);
-            this.mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return this.mFragmentTitleList.get(position);
-        }
     }
 
 }

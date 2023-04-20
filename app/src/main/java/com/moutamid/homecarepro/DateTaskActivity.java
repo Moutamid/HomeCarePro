@@ -61,7 +61,7 @@ public class DateTaskActivity extends AppCompatActivity {
                 newList.add(list.get(i));
             }
 
-            TaskAdapter adapter = new TaskAdapter(this, newList);
+            TaskAdapter adapter = new TaskAdapter(this, newList, list);
             binding.recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 

@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity{
                 String d = new SimpleDateFormat(Constants.calFormat).format(dateClicked);
                 Stash.put(Constants.DATE_CLICK, d);
                 startActivity(new Intent(MainActivity.this, DateTaskActivity.class));
+                finish();
                 Log.d(TAG, "Day was clicked: " + dateClicked + " with events " + events);
             }
 
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity{
                 newList.add(list.get(i));
             }
 
-            TaskAdapter adapter = new TaskAdapter(this, newList);
+            TaskAdapter adapter = new TaskAdapter(this, newList, list);
             binding.recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
