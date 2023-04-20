@@ -22,6 +22,9 @@ public class Constants {
     public static final String monthFormat = "MM";
     public static final String yearFormat = "yyyy";
     public static final String SAVE_LIST = "saveList";
+    public static final String WEEKLY_LIST = "WEEKLY_LIST";
+    public static final String MONTHLY_LIST = "MONTHLY_LIST";
+    public static final String MONTH3_LIST = "MONTH3_LIST";
     public static final String DATE_CLICK = "dateClick";
     public static final String monthFORMAT = "MMM, yyyy";
 

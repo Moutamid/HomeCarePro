@@ -20,25 +20,26 @@ import java.util.Date;
 
 public class DateTaskActivity extends AppCompatActivity {
     ActivityDateTaskBinding binding;
+    ArrayList<TaskModel> list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
+    ArrayList<TaskModel> week = Stash.getArrayList(Constants.WEEKLY_LIST, TaskModel.class);
+    ArrayList<TaskModel> month = Stash.getArrayList(Constants.MONTHLY_LIST, TaskModel.class);
+    ArrayList<TaskModel> month3 = Stash.getArrayList(Constants.MONTH3_LIST, TaskModel.class);
+    ArrayList<TaskModel> newList = new ArrayList<>();
+    Date date1;
+    String date = Stash.getString(Constants.DATE_CLICK, "");
+    SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
+    SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDateTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ArrayList<TaskModel> list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
-        ArrayList<TaskModel> newList = new ArrayList<>();
-        String date = Stash.getString(Constants.DATE_CLICK, "");
 
-        SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
-        SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat);
-        Date date1, date2;
+
         String cur = "";
         try {
             date1 = calformat.parse(date);
-            String dd = format.format(date1);
-            String ff = format.format(new Date().getTime());
-            date2 = format.parse(ff);
             cur = format.format(date1);
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -50,7 +51,7 @@ public class DateTaskActivity extends AppCompatActivity {
         binding.recycler.setHasFixedSize(false);
 
         for (int i = 0; i <list.size(); i++) {
-            String s = list.get(i).getStartingDate();
+            String s = format.format(list.get(i).getStartingDateTimeStamp());
             Date date3;
             try {
                 date3 = format.parse(s);
@@ -67,11 +68,77 @@ public class DateTaskActivity extends AppCompatActivity {
 
         }
 
+        checkFromWeek();
+
         binding.back.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         });
 
+    }
+
+    private void checkFromWeek() {
+        for (int i = 0; i <week.size(); i++) {
+            String s = format.format(week.get(i).getStartingDateTimeStamp());
+            Date date3;
+            try {
+                date3 = format.parse(s);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            if (date1.compareTo(date3) == 0) {
+                newList.add(week.get(i));
+            }
+
+            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            binding.recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+        }
+
+        checkFromMonth();
+    }
+
+    private void checkFromMonth() {
+        for (int i = 0; i <month.size(); i++) {
+            String s = format.format(month.get(i).getStartingDateTimeStamp());
+            Date date3;
+            try {
+                date3 = format.parse(s);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            if (date1.compareTo(date3) == 0) {
+                newList.add(month.get(i));
+            }
+
+            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            binding.recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+        }
+
+        checkFrom3Month();
+    }
+
+    private void checkFrom3Month() {
+        for (int i = 0; i <month3.size(); i++) {
+            String s = format.format(month3.get(i).getStartingDateTimeStamp());
+            Date date3;
+            try {
+                date3 = format.parse(s);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            if (date1.compareTo(date3) == 0) {
+                newList.add(month3.get(i));
+            }
+
+            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            binding.recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+        }
     }
 
     @Override
