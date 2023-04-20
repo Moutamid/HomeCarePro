@@ -52,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12sp"
+        android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -221,19 +222,35 @@
 <!--            app:rangeSelectionEndColor="#c1ae01"-->
 <!--            app:weekHeaderTextSize="16sp" />-->
 
+        <TextView
+            android:id="@+id/calendarDayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="April"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawablePadding="12sp"
+            android:drawableTint="@color/off_white"
+            android:drawableRight="@drawable/round_arrow_forward_ios_24"
+            android:drawableLeft="@drawable/round_arrow_back_ios_24"
+            android:fontFamily="@font/poppins"
+            android:textSize="22sp"
+            android:textColor="@color/off_white" />
+
         <com.github.sundeepk.compactcalendarview.CompactCalendarView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/compactcalendar_view"
             android:layout_width="fill_parent"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
-            android:layout_height="250dp"
-            app:compactCalendarTargetHeight="250dp"
-            app:compactCalendarTextSize="12sp"
+            android:layout_height="350dp"
+            app:compactCalendarTargetHeight="350dp"
+            app:compactCalendarTextSize="18sp"
             app:compactCalendarBackgroundColor="@color/dark_bg"
-            app:compactCalendarTextColor="#fff"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/blue_dark"
-            app:compactCalendarCurrentDayBackgroundColor="@color/blue_dark"
+            app:compactCalendarTextColor="@color/off_white"
+            app:compactCalendarDisplayOtherMonthDays="true"
+            app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/dark_header"
+            app:compactCalendarCurrentDayBackgroundColor="@color/dark_header"
             app:compactCalendarMultiEventIndicatorColor="@color/high_prio"
             />
 

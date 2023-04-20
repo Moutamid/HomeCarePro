@@ -65,7 +65,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
 
         SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
         String date = format.format(model.getDate());
-        holder.date.setText("Created At : "+date);
+        holder.date.setText("Created At : "+date+"\nStarted From : " + model.getStartingDate());
 
         holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

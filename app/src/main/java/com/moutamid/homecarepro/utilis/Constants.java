@@ -20,6 +20,7 @@ public class Constants {
     public static final String calFormat = "yyyy-MM-dd";
     public static final String SAVE_LIST = "saveList";
     public static final String DATE_CLICK = "dateClick";
+    public static final String monthFORMAT = "MMM, yyyy";
 
     // Priorities
     public static final String HIGH = "High";

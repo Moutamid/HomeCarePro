@@ -49,9 +49,10 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.OnItemSelectedListener;
 
-public class MainActivity extends AppCompatActivity implements EventsCalendar.Callback {
+public class MainActivity extends AppCompatActivity{
     ActivityMainBinding binding;
-    ArrayList<TaskModel> list, todayList;
+    ArrayList<TaskModel> another;
+    SimpleDateFormat format = new SimpleDateFormat(Constants.monthFORMAT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,35 +64,57 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
         binding.recycler.setHasFixedSize(false);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        todayList = new ArrayList<>();
+        Date date = new Date();
+        String d = format.format(date);
+        binding.calendarDayText.setText(d);
+
+        another = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
 
         showList();
 
         final CompactCalendarView compactCalendarView = (CompactCalendarView) binding.compactcalendarView;
         compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
+        compactCalendarView.setUseThreeLetterAbbreviation(true);
 
-        Event ev1 = new Event(Color.GREEN, list.get(3).getStartingDateTimeStamp(), "Some extra data that I want to store.");
-        compactCalendarView.addEvent(ev1);
+        for (int i=0; i < another.size(); i++){
+            if (another.get(i).getPriority().equals(Constants.HIGH)){
+                Event ev1 = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), "High Priority Task.");
+                compactCalendarView.addEvent(ev1);
+            }
+            if (another.get(i).getPriority().equals(Constants.MEDIUM)){
+                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), "Medium Priority Task.");
+                compactCalendarView.addEvent(ev1);
+            }
 
-        Event ev2 = new Event(Color.RED, list.get(3).getStartingDateTimeStamp());
-        compactCalendarView.addEvent(ev2);
+            if (another.get(i).getPriority().equals(Constants.LOW)){
+                Event ev1 = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), "Low Priority Task.");
+                compactCalendarView.addEvent(ev1);
+            }
+        }
 
-        List<Event> events = compactCalendarView.getEvents(list.get(3).getStartingDateTimeStamp()); // can also take a Date object
+
+
+       // List<Event> events = compactCalendarView.getEvents(list.get(3).getStartingDateTimeStamp()); // can also take a Date object
 
         // events has size 2 with the 2 events inserted previously
-        Log.d(TAG, "Events: " + events);
+       // Log.d(TAG, "Events: " + events);
 
         // define a listener to receive callbacks when certain events happen.
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
+                String d = new SimpleDateFormat(Constants.calFormat).format(dateClicked);
+                Stash.put(Constants.DATE_CLICK, d);
+                startActivity(new Intent(MainActivity.this, DateTaskActivity.class));
                 Log.d(TAG, "Day was clicked: " + dateClicked + " with events " + events);
             }
 
             @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
-                Log.d(TAG, "Month was scrolled to: " + firstDayOfNewMonth);
+            public void onMonthScroll(Date date) {
+                String d = format.format(date);
+                binding.calendarDayText.setText(d);
+                Log.d("DateCh1", "Month was scrolled to: " + date);
             }
         });
 
@@ -168,41 +191,42 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
     }
 
     private void showList() {
-//        SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
-//        String cur = format.format(new Date().getTime());
-//        todayList.clear();
-//        for (int i=0; i<list.size(); i++) {
-//            String date = format.format(list.get(i).getDate());
-//            if (date.equals(cur)) {
-//                todayList.add(list.get(i));
-//                TaskAdapter adapter = new TaskAdapter(this, todayList);
-//                binding.recycler.setAdapter(adapter);
-//            }
-//        }
-        list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
-        TaskAdapter adapter = new TaskAdapter(this, list);
-        binding.recycler.setAdapter(adapter);
+        ArrayList<TaskModel> list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
+        ArrayList<TaskModel> newList = new ArrayList<>();
+        String date = new SimpleDateFormat(Constants.calFormat).format(new Date().getTime());
+
+        SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
+        SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat);
+        Date date1;
+        try {
+            date1 = calformat.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i <list.size(); i++) {
+            String s = list.get(i).getStartingDate();
+            Date date3;
+            try {
+                date3 = format.parse(s);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            if (date1.compareTo(date3) == 0) {
+                newList.add(list.get(i));
+            }
+
+            TaskAdapter adapter = new TaskAdapter(this, newList);
+            binding.recycler.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+        }
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void onDayLongPressed(@Nullable Calendar calendar) {
-
-    }
-
-    @Override
-    public void onDaySelected(@Nullable Calendar calendar) {
-
-    }
-
-    @Override
-    public void onMonthChanged(@Nullable Calendar calendar) {
-
     }
 
 
