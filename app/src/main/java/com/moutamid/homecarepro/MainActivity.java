@@ -76,23 +76,20 @@ public class MainActivity extends AppCompatActivity{
         compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
-        for (int i=0; i < another.size(); i++){
-            if (another.get(i).getPriority().equals(Constants.HIGH)){
+        for (int i=0; i < another.size(); i++) {
+            if (another.get(i).getPriority().equals(Constants.HIGH)) {
                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), "High Priority Task.");
                 compactCalendarView.addEvent(ev1);
             }
-            if (another.get(i).getPriority().equals(Constants.MEDIUM)){
+            if (another.get(i).getPriority().equals(Constants.MEDIUM)) {
                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), "Medium Priority Task.");
                 compactCalendarView.addEvent(ev1);
             }
-
-            if (another.get(i).getPriority().equals(Constants.LOW)){
+            if (another.get(i).getPriority().equals(Constants.LOW)) {
                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), "Low Priority Task.");
                 compactCalendarView.addEvent(ev1);
             }
         }
-
-
 
        // List<Event> events = compactCalendarView.getEvents(list.get(3).getStartingDateTimeStamp()); // can also take a Date object
 
