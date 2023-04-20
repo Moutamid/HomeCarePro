@@ -18,6 +18,9 @@ import java.net.URL;
 public class Constants {
     public static final String myFormat = "dd/MM/yyyy";
     public static final String calFormat = "yyyy-MM-dd";
+    public static final String dayFormat = "dd";
+    public static final String monthFormat = "MM";
+    public static final String yearFormat = "yyyy";
     public static final String SAVE_LIST = "saveList";
     public static final String DATE_CLICK = "dateClick";
     public static final String monthFORMAT = "MMM, yyyy";

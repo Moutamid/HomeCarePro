@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/off_white"
                         android:gravity="end"
-                        android:text="Change Status : " />
+                        android:text="Completed ? : " />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/status"

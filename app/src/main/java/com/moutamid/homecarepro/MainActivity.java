@@ -38,7 +38,12 @@ import org.threeten.bp.YearMonth;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneOffset;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity{
     ActivityMainBinding binding;
     ArrayList<TaskModel> another;
     SimpleDateFormat format = new SimpleDateFormat(Constants.monthFORMAT);
+    long holderL = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,35 +74,355 @@ public class MainActivity extends AppCompatActivity{
         String d = format.format(date);
         binding.calendarDayText.setText(d);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 7);
+        long futureTimestamp = calendar.getTimeInMillis();
+
         another = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
+
+
 
         showList();
 
         final CompactCalendarView compactCalendarView = (CompactCalendarView) binding.compactcalendarView;
-        compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
+        compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
-
+        // compactCalendarView.setDayColumnNames(new String[]{"Hel", "Ter", "gu", "ch", "rdt", "fff", "lll"});
         for (int i=0; i < another.size(); i++) {
             if (another.get(i).getPriority().equals(Constants.HIGH)) {
-                Event ev1 = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), "High Priority Task.");
-                compactCalendarView.addEvent(ev1);
+                String sDay = new SimpleDateFormat(Constants.dayFormat).format(another.get(i).getStartingDateTimeStamp());
+                int day = Integer.parseInt(sDay);
+                String sMonth = new SimpleDateFormat(Constants.monthFormat).format(another.get(i).getStartingDateTimeStamp());
+                int month = Integer.parseInt(sMonth);
+                String sYear = new SimpleDateFormat(Constants.yearFormat).format(another.get(i).getStartingDateTimeStamp());
+                int year = Integer.parseInt(sYear);
+                if (another.get(i).getFrequency().equals("Weekly")) {
+                    for (int j=0; j<52; j++){
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
+                if (another.get(i).getFrequency().equals("Monthly")) {
+                    for (int j=0; j<12; j++) {
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
+                if (another.get(i).getFrequency().equals("3 Month")){
+                    for (int j=0; j<12; j=j+3) {
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
             }
             if (another.get(i).getPriority().equals(Constants.MEDIUM)) {
-                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), "Medium Priority Task.");
-                compactCalendarView.addEvent(ev1);
+                String sDay = new SimpleDateFormat(Constants.dayFormat).format(another.get(i).getStartingDateTimeStamp());
+                int day = Integer.parseInt(sDay);
+                String sMonth = new SimpleDateFormat(Constants.monthFormat).format(another.get(i).getStartingDateTimeStamp());
+                int month = Integer.parseInt(sMonth);
+                String sYear = new SimpleDateFormat(Constants.yearFormat).format(another.get(i).getStartingDateTimeStamp());
+                int year = Integer.parseInt(sYear);
+                if (another.get(i).getFrequency().equals("Weekly")) {
+                    for (int j=0; j<52; j++){
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
+                if (another.get(i).getFrequency().equals("Monthly")) {
+                    for (int j=0; j<12; j++) {
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
+                if (another.get(i).getFrequency().equals("3 Month")) {
+                    for (int j=0; j<12; j=j+3) {
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
             }
             if (another.get(i).getPriority().equals(Constants.LOW)) {
-                Event ev1 = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), "Low Priority Task.");
-                compactCalendarView.addEvent(ev1);
+                String sDay = new SimpleDateFormat(Constants.dayFormat).format(another.get(i).getStartingDateTimeStamp());
+                int day = Integer.parseInt(sDay);
+                String sMonth = new SimpleDateFormat(Constants.monthFormat).format(another.get(i).getStartingDateTimeStamp());
+                int month = Integer.parseInt(sMonth);
+                String sYear = new SimpleDateFormat(Constants.yearFormat).format(another.get(i).getStartingDateTimeStamp());
+                int year = Integer.parseInt(sYear);
+                Log.d("Checking1", ""+compactCalendarView.getWeekNumberForCurrentMonth());
+                Log.d("Checking1", ""+compactCalendarView.getHeightPerDay());
+                if (another.get(i).getFrequency().equals("Weekly")) {
+                    for (int j=0; j<52; j++){
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
+                if (another.get(i).getFrequency().equals("Monthly")) {
+                    for (int j=0; j<12; j++) {
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
+                if (another.get(i).getFrequency().equals("3 Month")) {
+                    for (int j=0; j<12; j=j+3) {
+                        Log.d("Checking1", "j "+j);
+                        LocalDate startDate, endDate;
+                        if (j==0) {
+                            startDate = LocalDate.of(year, month, day);
+                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+
+                        } else {
+                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                            int dayy = Integer.parseInt(ssDay);
+                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                            int monthh = Integer.parseInt(ssMonth);
+                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                            int yearr = Integer.parseInt(ssYear);
+
+                            startDate = LocalDate.of(yearr, monthh, dayy);
+                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
+
+                            LocalDateTime dateTime = endDate.atStartOfDay();
+
+                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                            holderL = timestamp;
+                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                            compactCalendarView.addEvent(ev1, true);
+                        }
+                    }
+                    Event ev = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    compactCalendarView.addEvent(ev);
+                }
             }
         }
-
-       // List<Event> events = compactCalendarView.getEvents(list.get(3).getStartingDateTimeStamp()); // can also take a Date object
-
-        // events has size 2 with the 2 events inserted previously
-       // Log.d(TAG, "Events: " + events);
-
-        // define a listener to receive callbacks when certain events happen.
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {

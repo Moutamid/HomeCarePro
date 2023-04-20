@@ -15,6 +15,12 @@
         android:theme="@style/Theme.HomeCarePro"
         tools:targetApi="31">
         <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+
+
+        </activity>
+        <activity
             android:name=".DateTaskActivity"
             android:exported="false" />
         <activity

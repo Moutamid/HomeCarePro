@@ -276,7 +276,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins"
-                    android:text="Daily Task"
+                    android:text="Today's Task"
                     android:textColor="@color/white"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -291,6 +291,7 @@
                     android:drawableRight="@drawable/round_arrow_forward_24"
                     android:drawableTint="@color/dark_header"
                     android:drawablePadding="7sp"
+                    android:textStyle="bold"
                     android:fontFamily="@font/poppins"
                     android:textColor="@color/dark_header"
                     android:text="@string/view_all"

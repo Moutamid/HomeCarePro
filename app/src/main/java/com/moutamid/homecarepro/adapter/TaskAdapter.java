@@ -62,6 +62,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
         } else if (model.getPriority().equals(Constants.MEDIUM)){
             holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.medium_prio));
         } else if (model.getPriority().equals(Constants.LOW)) {
+            //holder.priority.setTextColor(context.getResources().getColor(R.color.black));
             holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.low_prio));
         }
 
@@ -73,10 +74,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
             Log.d("Checking1", ""+isChecked);
             if (isChecked) {
                 allList.get(allList.indexOf(model)).setStatus(true);
-                // notifyItemChanged(holder.getAbsoluteAdapterPosition());
+                notifyDataSetChanged();
             } else {
                 allList.get(allList.indexOf(model)).setStatus(false);
-                // notifyItemChanged(holder.getAbsoluteAdapterPosition());
+                notifyDataSetChanged();
             }
             Stash.put(Constants.SAVE_LIST, allList);
         });

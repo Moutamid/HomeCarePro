@@ -28,7 +28,7 @@
 
     <color name="high_prio">#FF4136</color>
     <color name="medium_prio">#FF851B</color>
-    <color name="low_prio">#2ECC40</color>
+    <color name="low_prio">#4C7287</color>
 
     <color name="completed_task">#0074D9</color>
     <color name="inProgress_task">#FFDC00</color>
