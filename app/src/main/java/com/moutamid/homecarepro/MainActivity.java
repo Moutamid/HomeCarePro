@@ -1,5 +1,6 @@
 package com.moutamid.homecarepro;
 
+import static android.content.ContentValues.TAG;
 import static com.kizitonwose.calendar.core.ExtensionsKt.firstDayOfWeekFromLocale;
 
 import androidx.annotation.NonNull;
@@ -8,13 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.events.calendar.views.EventsCalendar;
 import com.fxn.stash.Stash;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.kizitonwose.calendar.core.CalendarDay;
 import com.kizitonwose.calendar.core.CalendarMonth;
 import com.kizitonwose.calendar.core.OutDateStyle;
@@ -37,6 +42,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import kotlin.Unit;
@@ -58,7 +64,38 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
         binding.recycler.setLayoutManager(new LinearLayoutManager(this));
 
         todayList = new ArrayList<>();
-        list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
+
+        showList();
+
+        final CompactCalendarView compactCalendarView = (CompactCalendarView) binding.compactcalendarView;
+        compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
+
+        Event ev1 = new Event(Color.GREEN, list.get(3).getStartingDateTimeStamp(), "Some extra data that I want to store.");
+        compactCalendarView.addEvent(ev1);
+
+        Event ev2 = new Event(Color.RED, list.get(3).getStartingDateTimeStamp());
+        compactCalendarView.addEvent(ev2);
+
+        List<Event> events = compactCalendarView.getEvents(list.get(3).getStartingDateTimeStamp()); // can also take a Date object
+
+        // events has size 2 with the 2 events inserted previously
+        Log.d(TAG, "Events: " + events);
+
+        // define a listener to receive callbacks when certain events happen.
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                List<Event> events = compactCalendarView.getEvents(dateClicked);
+                Log.d(TAG, "Day was clicked: " + dateClicked + " with events " + events);
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                Log.d(TAG, "Month was scrolled to: " + firstDayOfNewMonth);
+            }
+        });
+
+        /*
 
         binding.calendarView.setDayBinder(new MonthDayBinder<DayViewContainer>() {
             @NonNull
@@ -79,7 +116,10 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
+
+
                 if (date.compareTo(calDate) == 0) {
+                    Log.d("DateCh1", date.toString()+"  " + calDate.toString());
                     ((TextView) container.getView()).setBackgroundResource(R.drawable.daybg_cur);
                 }
                 ((TextView) container.getView()).setText(calendarDay.getDate().getDayOfMonth() + "");
@@ -113,13 +153,16 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
 
         binding.calendarView.setup(startMonth, endMonth, firstDayOfWeek);
         binding.calendarView.scrollToMonth(currentMonth);
-
+*/
 
         binding.createTask.setOnClickListener(v -> {
             startActivity(new Intent(this, CreateTaskActivity.class));
+            finish();
         });
+
         binding.viewAll.setOnClickListener(v -> {
             startActivity(new Intent(this, ViewAllActivity.class));
+            finish();
         });
 
     }
@@ -136,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
 //                binding.recycler.setAdapter(adapter);
 //            }
 //        }
-
+        list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
         TaskAdapter adapter = new TaskAdapter(this, list);
         binding.recycler.setAdapter(adapter);
 
@@ -145,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements EventsCalendar.Ca
     @Override
     protected void onResume() {
         super.onResume();
-        showList();
     }
 
     @Override

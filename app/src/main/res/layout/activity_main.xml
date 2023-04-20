@@ -9,7 +9,6 @@
     android:scrollbarSize="0dp"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,10 +48,68 @@
 
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12sp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="Completed / Low Priority" />
+
+        <View
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:background="@drawable/daybg"
+            android:backgroundTint="@color/low_prio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="inProgress / Medium Priority" />
+
+        <View
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:background="@drawable/daybg"
+            android:backgroundTint="@color/medium_prio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="5sp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="High Priority" />
+
+        <View
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:background="@drawable/daybg"
+            android:backgroundTint="@color/high_prio" />
+
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12sp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView
@@ -164,15 +221,22 @@
 <!--            app:rangeSelectionEndColor="#c1ae01"-->
 <!--            app:weekHeaderTextSize="16sp" />-->
 
-        <com.kizitonwose.calendar.view.CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12sp"
-            android:layout_marginEnd="12sp"
-            app:cv_dayViewResource="@layout/calendar_day_layout"
-            app:cv_monthHeaderResource="@layout/calender_month_layout"
-            app:fastScrollEnabled="false" />
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/compactcalendar_view"
+            android:layout_width="fill_parent"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_height="250dp"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextSize="12sp"
+            app:compactCalendarBackgroundColor="@color/dark_bg"
+            app:compactCalendarTextColor="#fff"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/blue_dark"
+            app:compactCalendarCurrentDayBackgroundColor="@color/blue_dark"
+            app:compactCalendarMultiEventIndicatorColor="@color/high_prio"
+            />
+
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -47,12 +47,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
         holder.name.setText("Name : " + model.getName());
         holder.frequn.setText("Frequency : "+model.getFrequency());
         holder.desc.setText("Description: " + model.getDescription());
+        holder.priority.setText(model.getPriority());
 
         if (model.isStatus()){
-             holder.priority.setText("Completed");
-             holder.status.setChecked(true);
+            holder.status.setChecked(true);
         } else {
-            holder.priority.setText(model.getPriority());
             holder.status.setChecked(false);
         }
 
@@ -66,21 +65,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
 
         SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
         String date = format.format(model.getDate());
-        holder.date.setText(date);
+        holder.date.setText("Created At : "+date);
 
         holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     list.get(holder.getAbsoluteAdapterPosition()).setStatus(true);
-                    Stash.clear(Constants.SAVE_LIST);
-                    Stash.put(Constants.SAVE_LIST, list);
+                    // notifyItemChanged(holder.getAbsoluteAdapterPosition());
                 } else {
                     list.get(holder.getAbsoluteAdapterPosition()).setStatus(false);
-                    Stash.clear(Constants.SAVE_LIST);
-                    Stash.put(Constants.SAVE_LIST, list);
+                    // notifyItemChanged(holder.getAbsoluteAdapterPosition());
                 }
-                notifyItemChanged(holder.getAbsoluteAdapterPosition());
+                Stash.clear(Constants.SAVE_LIST);
+                Stash.put(Constants.SAVE_LIST, list);
             }
         });
 

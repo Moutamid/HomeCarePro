@@ -31,6 +31,13 @@ public class CompletedFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentCompletedBinding.inflate(getLayoutInflater(), container, false);
 
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         ArrayList<TaskModel> list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
         ArrayList<TaskModel> completed = new ArrayList<>();
 
@@ -46,6 +53,5 @@ public class CompletedFragment extends Fragment {
         TaskAdapter adapter = new TaskAdapter(requireContext(), completed);
         binding.recycler.setAdapter(adapter);
 
-        return binding.getRoot();
     }
 }

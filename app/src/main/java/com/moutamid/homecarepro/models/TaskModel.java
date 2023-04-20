@@ -7,8 +7,9 @@ public class TaskModel {
     String frequency; //  weekly, quarter(3 months), monthly
     boolean status; // complete or not. (true/false)
     String startingDate;
+    long startingDateTimeStamp;
 
-    public TaskModel(String id, String name, String description, long date, String priority, String frequency, boolean status, String startingDate) {
+    public TaskModel(String id, String name, String description, long date, String priority, String frequency, boolean status, String startingDate, long startingDateTimeStamp) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -17,6 +18,15 @@ public class TaskModel {
         this.frequency = frequency;
         this.status = status;
         this.startingDate = startingDate;
+        this.startingDateTimeStamp = startingDateTimeStamp;
+    }
+
+    public long getStartingDateTimeStamp() {
+        return startingDateTimeStamp;
+    }
+
+    public void setStartingDateTimeStamp(long startingDateTimeStamp) {
+        this.startingDateTimeStamp = startingDateTimeStamp;
     }
 
     public String getStartingDate() {

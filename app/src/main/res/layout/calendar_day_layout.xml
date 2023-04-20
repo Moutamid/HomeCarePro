@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:textSize="18sp"
+    android:fontFamily="@font/poppins"
     android:textColor="@color/white"
     android:background="@drawable/daybg"
     tools:text="22"

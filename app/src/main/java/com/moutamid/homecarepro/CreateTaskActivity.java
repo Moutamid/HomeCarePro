@@ -35,7 +35,10 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
 
-        binding.back.setOnClickListener(v -> onBackPressed());
+        binding.back.setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
 
         DatePickerDialog.OnDateSetListener da = (datePicker, year, month, day) -> {
             calendar.set(Calendar.YEAR, year);
@@ -55,15 +58,22 @@ public class CreateTaskActivity extends AppCompatActivity {
                         binding.taskName.getEditText().getText().toString(),
                         binding.taskDesc.getEditText().getText().toString(),
                         new Date().getTime(),
-                        priority, frequency, false, date
+                        priority, frequency, false, date, calendar.getTime().getTime()
                 );
                 list.add(taskModel);
                 Stash.put(Constants.SAVE_LIST, list);
                 Toast.makeText(this, "Task added Successfully", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void updateLabel() {

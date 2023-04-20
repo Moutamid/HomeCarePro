@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
 
     implementation 'com.github.tizisdeepan:eventscalendar:1.6.1'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 
     // The view calendar library
     implementation 'com.kizitonwose.calendar:view:2.3.0'

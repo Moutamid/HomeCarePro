@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.moutamid.homecarepro.databinding.ActivityViewAllBinding;
@@ -23,12 +24,21 @@ public class ViewAllActivity extends AppCompatActivity {
         binding = ActivityViewAllBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.back.setOnClickListener(v -> onBackPressed());
+        binding.back.setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
 
         setupViewPager(binding.viewPager);
         binding.tabs.setupWithViewPager(binding.viewPager);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void setupViewPager(ViewPager viewPager) {
