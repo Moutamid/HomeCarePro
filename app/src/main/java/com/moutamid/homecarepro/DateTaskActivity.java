@@ -35,8 +35,6 @@ public class DateTaskActivity extends AppCompatActivity {
         binding = ActivityDateTaskBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         String cur = "";
         try {
             date1 = calformat.parse(date);

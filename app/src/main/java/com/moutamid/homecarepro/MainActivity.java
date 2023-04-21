@@ -56,7 +56,7 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.OnItemSelectedListener;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     ArrayList<TaskModel> another, week, monthly, month3;
     SimpleDateFormat monthFORMAT = new SimpleDateFormat(Constants.monthFORMAT);
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity{
         compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         // compactCalendarView.setDayColumnNames(new String[]{"Hel", "Ter", "gu", "ch", "rdt", "fff", "lll"});
-        for (int i=0; i < another.size(); i++) {
+        for (int i = 0; i < another.size(); i++) {
             String sDay = new SimpleDateFormat(Constants.dayFormat).format(another.get(i).getStartingDateTimeStamp());
             int day = Integer.parseInt(sDay);
             String sMonth = new SimpleDateFormat(Constants.monthFormat).format(another.get(i).getStartingDateTimeStamp());
@@ -120,526 +120,529 @@ public class MainActivity extends AppCompatActivity{
             String sYear = new SimpleDateFormat(Constants.yearFormat).format(another.get(i).getStartingDateTimeStamp());
             int year = Integer.parseInt(sYear);
 
-            // Check For High Priority Events
-            if (another.get(i).getPriority().equals(Constants.HIGH)) {
-                if (another.get(i).getFrequency().equals("Weekly")) {
-                    for (int j=0; j<52; j++){
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(7, ChronoUnit.DAYS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
+            if(!another.get(i).isStatus()){
+                // Check For High Priority Events
+                if (another.get(i).getPriority().equals(Constants.HIGH)) {
+                    if (another.get(i).getFrequency().equals("Weekly")) {
+                        for (int j = 0; j < 52; j++) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(7, ChronoUnit.DAYS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            week.add(taskModel);
-                            Stash.put(Constants.WEEKLY_LIST, week);
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                week.add(taskModel);
+                                Stash.put(Constants.WEEKLY_LIST, week);
 
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
 
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(7, ChronoUnit.DAYS);
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(7, ChronoUnit.DAYS);
 
-                            LocalDateTime dateTime = endDate.atStartOfDay();
+                                LocalDateTime dateTime = endDate.atStartOfDay();
 
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            week.add(taskModel);
-                            Stash.put(Constants.WEEKLY_LIST, week);
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                week.add(taskModel);
+                                Stash.put(Constants.WEEKLY_LIST, week);
 
+                            }
                         }
+                        Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                        compactCalendarView.addEvent(ev);
                     }
-                    Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
-                    compactCalendarView.addEvent(ev);
+                    if (another.get(i).getFrequency().equals("Monthly")) {
+                        for (int j = 0; j < 12; j++) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                monthly.add(taskModel);
+                                Stash.put(Constants.MONTHLY_LIST, monthly);
+
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
+
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(1, ChronoUnit.MONTHS);
+
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                monthly.add(taskModel);
+                                Stash.put(Constants.MONTHLY_LIST, monthly);
+
+                            }
+                        }
+                        Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                        compactCalendarView.addEvent(ev);
+                    }
+                    if (another.get(i).getFrequency().equals("3 Month")) {
+                        for (int j = 0; j < 12; j = j + 3) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(3, ChronoUnit.MONTHS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                month3.add(taskModel);
+                                Stash.put(Constants.MONTH3_LIST, month3);
+
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
+
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(3, ChronoUnit.MONTHS);
+
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                month3.add(taskModel);
+                                Stash.put(Constants.MONTH3_LIST, month3);
+
+                            }
+                        }
+                        Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                        compactCalendarView.addEvent(ev);
+                    }
                 }
-                if (another.get(i).getFrequency().equals("Monthly")) {
-                    for (int j=0; j<12; j++) {
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
+                // Check For Medium Priority Events
+                if (another.get(i).getPriority().equals(Constants.MEDIUM)) {
+                    if (another.get(i).getFrequency().equals("Weekly")) {
+                        for (int j = 0; j < 52; j++) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(7, ChronoUnit.DAYS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            monthly.add(taskModel);
-                            Stash.put(Constants.MONTHLY_LIST, monthly);
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                week.add(taskModel);
+                                Stash.put(Constants.WEEKLY_LIST, week);
 
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
 
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(7, ChronoUnit.DAYS);
 
-                            LocalDateTime dateTime = endDate.atStartOfDay();
+                                LocalDateTime dateTime = endDate.atStartOfDay();
 
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            monthly.add(taskModel);
-                            Stash.put(Constants.MONTHLY_LIST, monthly);
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                week.add(taskModel);
+                                Stash.put(Constants.WEEKLY_LIST, week);
 
+                            }
+                        }
+                        Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                        compactCalendarView.addEvent(ev);
+                    }
+                    if (another.get(i).getFrequency().equals("Monthly")) {
+                        for (int j = 0; j < 12; j++) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                monthly.add(taskModel);
+                                Stash.put(Constants.MONTHLY_LIST, monthly);
+
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
+
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(1, ChronoUnit.MONTHS);
+
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                monthly.add(taskModel);
+                                Stash.put(Constants.MONTHLY_LIST, monthly);
+
+                            }
+                        }
+                        Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                        compactCalendarView.addEvent(ev);
+                    }
+                    if (another.get(i).getFrequency().equals("3 Month")) {
+                        for (int j = 0; j < 12; j = j + 3) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(3, ChronoUnit.MONTHS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                month3.add(taskModel);
+                                Stash.put(Constants.MONTH3_LIST, month3);
+
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
+
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(3, ChronoUnit.MONTHS);
+
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                month3.add(taskModel);
+                                Stash.put(Constants.MONTH3_LIST, month3);
+
+                            }
                         }
                     }
-                    Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
-                    compactCalendarView.addEvent(ev);
+
                 }
-                if (another.get(i).getFrequency().equals("3 Month")){
-                    for (int j=0; j<12; j=j+3) {
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
+                // Check For Low Priority Events
+                if (another.get(i).getPriority().equals(Constants.LOW)) {
+                    if (another.get(i).getFrequency().equals("Weekly")) {
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            month3.add(taskModel);
-                            Stash.put(Constants.MONTH3_LIST, month3);
+                        for (int j = 0; j < 52; j++) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(7, ChronoUnit.DAYS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
 
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                week.add(taskModel);
+                                Stash.put(Constants.WEEKLY_LIST, week);
 
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
 
-                            LocalDateTime dateTime = endDate.atStartOfDay();
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
 
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(7, ChronoUnit.DAYS);
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.HIGH, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            month3.add(taskModel);
-                            Stash.put(Constants.MONTH3_LIST, month3);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
 
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                week.add(taskModel);
+                                Stash.put(Constants.WEEKLY_LIST, week);
+
+                            }
                         }
                     }
-                    Event ev = new Event(getResources().getColor(R.color.high_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
+                    if (another.get(i).getFrequency().equals("Monthly")) {
+                        for (int j = 0; j < 12; j++) {
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(1, ChronoUnit.MONTHS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                monthly.add(taskModel);
+                                Stash.put(Constants.MONTHLY_LIST, monthly);
+
+
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
+
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(1, ChronoUnit.MONTHS);
+
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                monthly.add(taskModel);
+                                Stash.put(Constants.MONTHLY_LIST, monthly);
+
+                            }
+                        }
+                    }
+                    if (another.get(i).getFrequency().equals("3 Month")) {
+                        for (int j = 0; j < 12; j = j + 3) {
+                            Log.d("Checking1", "j " + j);
+                            LocalDate startDate, endDate;
+                            if (j == 0) {
+                                startDate = LocalDate.of(year, month, day);
+                                endDate = startDate.plus(3, ChronoUnit.MONTHS);
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                month3.add(taskModel);
+                                Stash.put(Constants.MONTH3_LIST, month3);
+                            } else {
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                int dayy = Integer.parseInt(ssDay);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                int monthh = Integer.parseInt(ssMonth);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                int yearr = Integer.parseInt(ssYear);
+
+                                startDate = LocalDate.of(yearr, monthh, dayy);
+                                endDate = startDate.plus(3, ChronoUnit.MONTHS);
+
+                                LocalDateTime dateTime = endDate.atStartOfDay();
+
+                                long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+                                holderL = timestamp;
+                                Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
+                                compactCalendarView.addEvent(ev1, true);
+
+                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                TaskModel taskModel = new TaskModel(
+                                        another.get(i).getId(),
+                                        another.get(i).getName(),
+                                        another.get(i).getDescription(),
+                                        another.get(i).getDate(),
+                                        Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
+                                );
+                                month3.add(taskModel);
+                                Stash.put(Constants.MONTH3_LIST, month3);
+
+                            }
+                        }
+                    }
+
+                    Event ev = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
                     compactCalendarView.addEvent(ev);
                 }
             }
-            // Check For Medium Priority Events
-            if (another.get(i).getPriority().equals(Constants.MEDIUM)) {
-                if (another.get(i).getFrequency().equals("Weekly")) {
-                    for (int j=0; j<52; j++){
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(7, ChronoUnit.DAYS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
 
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            week.add(taskModel);
-                            Stash.put(Constants.WEEKLY_LIST, week);
-
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
-
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(7, ChronoUnit.DAYS);
-
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            week.add(taskModel);
-                            Stash.put(Constants.WEEKLY_LIST, week);
-
-                        }
-                    }
-                    Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
-                    compactCalendarView.addEvent(ev);
-                }
-                if (another.get(i).getFrequency().equals("Monthly")) {
-                    for (int j=0; j<12; j++) {
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            monthly.add(taskModel);
-                            Stash.put(Constants.MONTHLY_LIST, monthly);
-
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
-
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
-
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            monthly.add(taskModel);
-                            Stash.put(Constants.MONTHLY_LIST, monthly);
-
-                        }
-                    }
-                    Event ev = new Event(getResources().getColor(R.color.medium_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
-                    compactCalendarView.addEvent(ev);
-                }
-                if (another.get(i).getFrequency().equals("3 Month")) {
-                    for (int j=0; j<12; j=j+3) {
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            month3.add(taskModel);
-                            Stash.put(Constants.MONTH3_LIST, month3);
-
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
-
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
-
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.MEDIUM, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            month3.add(taskModel);
-                            Stash.put(Constants.MONTH3_LIST, month3);
-
-                        }
-                    }
-                }
-
-            }
-            // Check For Low Priority Events
-            if (another.get(i).getPriority().equals(Constants.LOW)) {
-                if (another.get(i).getFrequency().equals("Weekly")) {
-
-                    for (int j=0; j<52; j++) {
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(7, ChronoUnit.DAYS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            week.add(taskModel);
-                            Stash.put(Constants.WEEKLY_LIST, week);
-
-
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
-
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(7, ChronoUnit.DAYS);
-
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            week.add(taskModel);
-                            Stash.put(Constants.WEEKLY_LIST, week);
-
-                        }
-                    }
-                }
-                if (another.get(i).getFrequency().equals("Monthly")) {
-                    for (int j=0; j<12; j++) {
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            monthly.add(taskModel);
-                            Stash.put(Constants.MONTHLY_LIST, monthly);
-
-
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
-
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(1, ChronoUnit.MONTHS);
-
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            monthly.add(taskModel);
-                            Stash.put(Constants.MONTHLY_LIST, monthly);
-
-                        }
-                    }
-                }
-                if (another.get(i).getFrequency().equals("3 Month")) {
-                    for (int j=0; j<12; j=j+3) {
-                        Log.d("Checking1", "j "+j);
-                        LocalDate startDate, endDate;
-                        if (j==0) {
-                            startDate = LocalDate.of(year, month, day);
-                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            month3.add(taskModel);
-                            Stash.put(Constants.MONTH3_LIST, month3);
-                        } else {
-                            String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
-                            int dayy = Integer.parseInt(ssDay);
-                            String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
-                            int monthh = Integer.parseInt(ssMonth);
-                            String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
-                            int yearr = Integer.parseInt(ssYear);
-
-                            startDate = LocalDate.of(yearr, monthh, dayy);
-                            endDate = startDate.plus(3, ChronoUnit.MONTHS);
-
-                            LocalDateTime dateTime = endDate.atStartOfDay();
-
-                            long timestamp = dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
-                            holderL = timestamp;
-                            Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
-                            compactCalendarView.addEvent(ev1, true);
-
-                            String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
-                            TaskModel taskModel = new TaskModel(
-                                    another.get(i).getId(),
-                                    another.get(i).getName(),
-                                    another.get(i).getDescription(),
-                                    another.get(i).getDate(),
-                                    Constants.LOW, another.get(i).getFrequency(), another.get(i).isStatus(), dt, timestamp
-                            );
-                            month3.add(taskModel);
-                            Stash.put(Constants.MONTH3_LIST, month3);
-
-                        }
-                    }
-                }
-
-                Event ev = new Event(getResources().getColor(R.color.low_prio), another.get(i).getStartingDateTimeStamp(), another.get(i).getName());
-                compactCalendarView.addEvent(ev);
-            }
         }
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -679,7 +682,7 @@ public class MainActivity extends AppCompatActivity{
             throw new RuntimeException(e);
         }
 
-        for (int i = 0; i <list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             String s = list.get(i).getStartingDate();
             Date date3;
             try {
@@ -702,7 +705,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void checkFromWeek() {
-        for (int i = 0; i <weekStash.size(); i++) {
+        for (int i = 0; i < weekStash.size(); i++) {
             String s = format.format(weekStash.get(i).getStartingDateTimeStamp());
             Date date3;
             try {
@@ -724,7 +727,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void checkFromMonth() {
-        for (int i = 0; i <monthStash.size(); i++) {
+        for (int i = 0; i < monthStash.size(); i++) {
             String s = format.format(monthStash.get(i).getStartingDateTimeStamp());
             Date date3;
             try {
@@ -746,7 +749,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void checkFrom3Month() {
-        for (int i = 0; i <month3Stash.size(); i++) {
+        for (int i = 0; i < month3Stash.size(); i++) {
             String s = format.format(month3Stash.get(i).getStartingDateTimeStamp());
             Date date3;
             try {
