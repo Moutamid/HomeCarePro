@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,18 @@ public class Task_Adapter extends RecyclerView.Adapter<Task_Adapter.TaskVH> {
         SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
         String date = format.format(model.getDate());
         holder.date.setText("Created At : "+date+"\nStarted From : " + model.getStartingDate());
+
+        holder.status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+
+                }
+            }
+        });
+
     }
 
     @Override
