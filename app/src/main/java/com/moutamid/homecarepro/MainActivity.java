@@ -700,7 +700,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        checkFromWeek();
+      //  checkFromWeek();
 
     }
 
