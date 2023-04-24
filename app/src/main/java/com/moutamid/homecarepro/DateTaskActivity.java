@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.fxn.stash.Stash;
 import com.moutamid.homecarepro.adapter.TaskAdapter;
+import com.moutamid.homecarepro.adapter.Task_Adapter;
 import com.moutamid.homecarepro.databinding.ActivityDateTaskBinding;
 import com.moutamid.homecarepro.models.TaskModel;
 import com.moutamid.homecarepro.utilis.Constants;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateTaskActivity extends AppCompatActivity {
     ActivityDateTaskBinding binding;
@@ -27,8 +29,8 @@ public class DateTaskActivity extends AppCompatActivity {
     ArrayList<TaskModel> newList = new ArrayList<>();
     Date date1;
     String date = Stash.getString(Constants.DATE_CLICK, "");
-    SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
-    SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat);
+    SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat, Locale.getDefault());
+    SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat, Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class DateTaskActivity extends AppCompatActivity {
                 newList.add(list.get(i));
             }
 
-            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            Task_Adapter adapter = new Task_Adapter(this, newList, list);
             binding.recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -88,7 +90,7 @@ public class DateTaskActivity extends AppCompatActivity {
                 newList.add(week.get(i));
             }
 
-            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            Task_Adapter adapter = new Task_Adapter(this, newList, list);
             binding.recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -110,7 +112,7 @@ public class DateTaskActivity extends AppCompatActivity {
                 newList.add(month.get(i));
             }
 
-            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            Task_Adapter adapter = new Task_Adapter(this, newList, list);
             binding.recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -132,7 +134,7 @@ public class DateTaskActivity extends AppCompatActivity {
                 newList.add(month3.get(i));
             }
 
-            TaskAdapter adapter = new TaskAdapter(this, newList, list);
+            Task_Adapter adapter = new Task_Adapter(this, newList, list);
             binding.recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 

@@ -115,6 +115,7 @@
                     android:layout_gravity="end">
 
                     <TextView
+                        android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/off_white"

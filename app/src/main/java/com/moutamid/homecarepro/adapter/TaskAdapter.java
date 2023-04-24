@@ -23,6 +23,7 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
 
@@ -51,34 +52,66 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskVH> {
         holder.desc.setText("Description: " + model.getDescription());
         holder.priority.setText(model.getPriority());
 
-        if (model.isStatus()){
-            holder.status.setChecked(true);
-        } else {
-            holder.status.setChecked(false);
+        holder.status.setChecked(model.isStatus());
+
+        switch (model.getPriority()) {
+            case Constants.HIGH:
+                holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.high_prio));
+                break;
+            case Constants.MEDIUM:
+                holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.medium_prio));
+                break;
+            case Constants.LOW:
+                holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.low_prio));
+                break;
         }
 
-        if (model.getPriority().equals(Constants.HIGH)) {
-            holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.high_prio));
-        } else if (model.getPriority().equals(Constants.MEDIUM)) {
-            holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.medium_prio));
-        } else if (model.getPriority().equals(Constants.LOW)) {
-            holder.priorityCard.setCardBackgroundColor(context.getResources().getColor(R.color.low_prio));
-        }
-
-        SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
+        SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat, Locale.getDefault());
         String date = format.format(model.getDate());
-        holder.date.setText("Created At : "+date+"\nStarted From : " + model.getStartingDate());
+        holder.date.setText("Created At : "+date+"\nStarting From : " + model.getStartingDate());
 
         holder.status.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Log.d("Checking1", ""+isChecked);
-            if (isChecked) {
-                allList.get(allList.indexOf(model)).setStatus(true);
-                notifyDataSetChanged();
-            } else {
-                allList.get(allList.indexOf(model)).setStatus(false);
-                notifyDataSetChanged();
+
+            for (int i=0; i<allList.size(); i++) {
+                if (list.get(holder.getAbsoluteAdapterPosition()).getName().equals(allList.get(i).getName())){
+                    allList.get(i).setStatus(isChecked);
+                   // notifyDataSetChanged();
+                    Stash.put(Constants.SAVE_LIST, allList);
+                }
             }
-            Stash.put(Constants.SAVE_LIST, allList);
+            switch (model.getFrequency()) {
+                case Constants.WEEK:
+                    ArrayList<TaskModel> week = Stash.getArrayList(Constants.WEEKLY_LIST, TaskModel.class);
+                    for (int k=0; k<week.size(); k++) {
+                        if (list.get(holder.getAbsoluteAdapterPosition()).getName().equals(week.get(k).getName())){
+                            week.get(k).setStatus(isChecked);
+                            // notifyDataSetChanged();
+                            Stash.put(Constants.WEEKLY_LIST, week);
+                        }
+                    }
+                    break;
+                case Constants.MONTH:
+                    ArrayList<TaskModel> month = Stash.getArrayList(Constants.MONTHLY_LIST, TaskModel.class);
+                    for (int k=0; k<month.size(); k++) {
+                        if (list.get(holder.getAbsoluteAdapterPosition()).getName().equals(month.get(k).getName())){
+                            month.get(k).setStatus(isChecked);
+                            // notifyDataSetChanged();
+                            Stash.put(Constants.MONTHLY_LIST, month);
+                        }
+                    }
+                    break;
+                case Constants.MONTH_3:
+                    ArrayList<TaskModel> month3 = Stash.getArrayList(Constants.MONTH3_LIST, TaskModel.class);
+                    for (int k=0; k<month3.size(); k++) {
+                        if (list.get(holder.getAbsoluteAdapterPosition()).getName().equals(month3.get(k).getName())){
+                            month3.get(k).setStatus(isChecked);
+                            // notifyDataSetChanged();
+                            Stash.put(Constants.MONTH3_LIST, month3);
+                        }
+                    }
+                    break;
+            }
         });
 
     }

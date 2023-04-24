@@ -59,8 +59,7 @@ import me.ibrahimsn.lib.OnItemSelectedListener;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     ArrayList<TaskModel> another, week, monthly, month3;
-    SimpleDateFormat monthFORMAT = new SimpleDateFormat(Constants.monthFORMAT);
-
+    SimpleDateFormat monthFORMAT = new SimpleDateFormat(Constants.monthFORMAT, Locale.getDefault());
     ArrayList<TaskModel> weekStash;
     ArrayList<TaskModel> monthStash;
     ArrayList<TaskModel> month3Stash;
@@ -69,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<TaskModel> list = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
     ArrayList<TaskModel> newList = new ArrayList<>();
-    String date = new SimpleDateFormat(Constants.calFormat).format(new Date().getTime());
-    SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat);
-    SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat);
+    String date = new SimpleDateFormat(Constants.calFormat, Locale.getDefault()).format(new Date().getTime());
+    SimpleDateFormat format = new SimpleDateFormat(Constants.myFormat, Locale.getDefault());
+    SimpleDateFormat calformat = new SimpleDateFormat(Constants.calFormat, Locale.getDefault());
     Date date1;
 
     @Override
@@ -113,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         // compactCalendarView.setDayColumnNames(new String[]{"Hel", "Ter", "gu", "ch", "rdt", "fff", "lll"});
         for (int i = 0; i < another.size(); i++) {
-            String sDay = new SimpleDateFormat(Constants.dayFormat).format(another.get(i).getStartingDateTimeStamp());
+            String sDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(another.get(i).getStartingDateTimeStamp());
             int day = Integer.parseInt(sDay);
-            String sMonth = new SimpleDateFormat(Constants.monthFormat).format(another.get(i).getStartingDateTimeStamp());
+            String sMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(another.get(i).getStartingDateTimeStamp());
             int month = Integer.parseInt(sMonth);
-            String sYear = new SimpleDateFormat(Constants.yearFormat).format(another.get(i).getStartingDateTimeStamp());
+            String sYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(another.get(i).getStartingDateTimeStamp());
             int year = Integer.parseInt(sYear);
 
             if(!another.get(i).isStatus()){
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -147,11 +146,11 @@ public class MainActivity extends AppCompatActivity {
                                 Stash.put(Constants.WEEKLY_LIST, week);
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -164,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -192,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -204,11 +203,11 @@ public class MainActivity extends AppCompatActivity {
                                 Stash.put(Constants.MONTHLY_LIST, monthly);
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -221,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -249,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -261,11 +260,11 @@ public class MainActivity extends AppCompatActivity {
                                 Stash.put(Constants.MONTH3_LIST, month3);
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -278,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.high_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -309,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -321,11 +320,11 @@ public class MainActivity extends AppCompatActivity {
                                 Stash.put(Constants.WEEKLY_LIST, week);
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -338,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -366,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -378,11 +377,11 @@ public class MainActivity extends AppCompatActivity {
                                 Stash.put(Constants.MONTHLY_LIST, monthly);
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -395,7 +394,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -423,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -435,11 +434,11 @@ public class MainActivity extends AppCompatActivity {
                                 Stash.put(Constants.MONTH3_LIST, month3);
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -452,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.medium_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -483,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -496,11 +495,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -513,7 +512,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -539,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -552,11 +551,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -569,7 +568,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -595,7 +594,7 @@ public class MainActivity extends AppCompatActivity {
                                 holderL = timestamp;
                                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -606,11 +605,11 @@ public class MainActivity extends AppCompatActivity {
                                 month3.add(taskModel);
                                 Stash.put(Constants.MONTH3_LIST, month3);
                             } else {
-                                String ssDay = new SimpleDateFormat(Constants.dayFormat).format(holderL);
+                                String ssDay = new SimpleDateFormat(Constants.dayFormat, Locale.getDefault()).format(holderL);
                                 int dayy = Integer.parseInt(ssDay);
-                                String ssMonth = new SimpleDateFormat(Constants.monthFormat).format(holderL);
+                                String ssMonth = new SimpleDateFormat(Constants.monthFormat, Locale.getDefault()).format(holderL);
                                 int monthh = Integer.parseInt(ssMonth);
-                                String ssYear = new SimpleDateFormat(Constants.yearFormat).format(holderL);
+                                String ssYear = new SimpleDateFormat(Constants.yearFormat, Locale.getDefault()).format(holderL);
                                 int yearr = Integer.parseInt(ssYear);
 
                                 startDate = LocalDate.of(yearr, monthh, dayy);
@@ -623,7 +622,7 @@ public class MainActivity extends AppCompatActivity {
                                 Event ev1 = new Event(getResources().getColor(R.color.low_prio), timestamp, another.get(i).getName());
                                 compactCalendarView.addEvent(ev1, true);
 
-                                String dt = new SimpleDateFormat(Constants.myFormat).format(timestamp);
+                                String dt = new SimpleDateFormat(Constants.myFormat, Locale.getDefault()).format(timestamp);
                                 TaskModel taskModel = new TaskModel(
                                         another.get(i).getId(),
                                         another.get(i).getName(),
@@ -648,7 +647,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
-                String d = new SimpleDateFormat(Constants.calFormat).format(dateClicked);
+                String d = new SimpleDateFormat(Constants.calFormat, Locale.getDefault()).format(dateClicked);
                 Stash.put(Constants.DATE_CLICK, d);
                 startActivity(new Intent(MainActivity.this, DateTaskActivity.class));
                 finish();
@@ -700,7 +699,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-      //  checkFromWeek();
+       checkFromWeek();
 
     }
 
