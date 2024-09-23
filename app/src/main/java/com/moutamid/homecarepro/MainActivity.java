@@ -93,6 +93,45 @@ public class MainActivity extends AppCompatActivity {
 
         another = Stash.getArrayList(Constants.SAVE_LIST, TaskModel.class);
 
+        if (another.isEmpty()){
+            another.add(new TaskModel(
+                    "29ccc9a4-0c65-4c4f-9ed9-5be0b231c6df",
+                    "Important Task",
+                    "this is Task description",
+                    1726297928048L,
+                    "Low",
+                    "Weekly",
+                    false,
+                    "16/09/2024",
+                    1726470676437L
+            ));
+
+            another.add(new TaskModel(
+                    "64315896-f7dc-401e-a9a3-93d47d06d5f3",
+                    "another",
+                    "Medium",
+                    1726297949554L,
+                    "Medium",
+                    "Monthly",
+                    false,
+                    "17/09/2024",
+                    1726557134537L
+            ));
+
+            another.add(new TaskModel(
+                    "5277f72e-f8c3-4e8b-8e93-7ca92b0714c8",
+                    "eee",
+                    "eeee",
+                    1726297960111L,
+                    "High",
+                    "3 Month",
+                    false,
+                    "16/09/2024",
+                    1726470751255L
+            ));
+            Stash.put(Constants.SAVE_LIST, another);
+        }
+
         week = new ArrayList<>();
         month3 = new ArrayList<>();
         monthly = new ArrayList<>();

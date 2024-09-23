@@ -92,4 +92,19 @@ public class TaskModel {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "TaskModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", priority='" + priority + '\'' +
+                ", frequency='" + frequency + '\'' +
+                ", status=" + status +
+                ", startingDate='" + startingDate + '\'' +
+                ", startingDateTimeStamp=" + startingDateTimeStamp +
+                '}';
+    }
 }
